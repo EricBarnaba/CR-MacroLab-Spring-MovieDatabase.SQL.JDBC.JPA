@@ -2,6 +2,7 @@ package io.zipcoder.persistenceapp.service;
 
 import io.zipcoder.persistenceapp.cache.PersonSurnameSearchCache;
 import io.zipcoder.persistenceapp.domain.Person;
+import io.zipcoder.persistenceapp.repository.PersonRepository;
 import io.zipcoder.persistenceapp.rowmapper.PersonRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,29 +22,37 @@ public class PersonService {
     @Autowired
     PersonSurnameSearchCache surnameCache;
 
+    @Autowired
+    PersonRepository repo;
+
 
     public Person getPersonById(int personId) throws EmptyResultDataAccessException {
-        String sql = "SELECT * FROM PERSON WHERE ID = ?";
-        return (Person) jdbc.queryForObject(sql, new Object[]{personId}, new PersonRowMapper());
+//        String sql = "SELECT * FROM PERSON WHERE ID = ?";
+//        return (Person) jdbc.queryForObject(sql, new Object[]{personId}, new PersonRowMapper());
+        return repo.findOne(personId);
 
     }
 
     public List<Person> getAllPerson() throws EmptyResultDataAccessException {
-        String sql = "SELECT * FROM PERSON";
-        List<Person> people = new ArrayList<>();
-        List<Map<String, Object>> rows = jdbc.queryForList(sql);
-        buildPersonList(people, rows);
-        return people;
+//        String sql = "SELECT * FROM PERSON";
+//        List<Person> people = new ArrayList<>();
+//        List<Map<String, Object>> rows = jdbc.queryForList(sql);
+//        buildPersonList(people, rows);
+        return repo.findAll();
     }
 
     public void deletePerson(int personId) throws EmptyResultDataAccessException {
-        String sql = "DELETE FROM PERSON WHERE ID = " + personId;
-        jdbc.execute(sql);
+//        String sql = "DELETE FROM PERSON WHERE ID = " + personId;
+//        jdbc.execute(sql);
+        repo.delete(personId);
     }
 
     public Person getPersonByMobile(String mobile) throws EmptyResultDataAccessException {
-        String sql = "SELECT * FROM PERSON WHERE MOBILE = ?";
-        return (Person) jdbc.queryForObject(sql, new Object[]{mobile}, new PersonRowMapper());
+//        String sql = "SELECT * FROM PERSON WHERE MOBILE = ?";
+//        return (Person) jdbc.queryForObject(sql, new Object[]{mobile}, new PersonRowMapper());
+
+
+        return null;
     }
 
     public List<Person> getAllPersonWithSurname(String lastName) throws EmptyResultDataAccessException {

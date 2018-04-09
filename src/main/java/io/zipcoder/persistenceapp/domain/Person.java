@@ -1,24 +1,39 @@
 package io.zipcoder.persistenceapp.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+@Entity
 public class Person {
-    private int id;
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "FIRST_NAME")
     private String firstName;
+
+    @Column(name = "LAST_NAME")
     private String lastName;
+
+    @Column(name = "MOBILE")
     private String mobile;
+
+    @Column(name = "BIRTHDAY")
     private Date birthday;
+
+    @Column(name = "HOME_ID")
     private int homeId;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
